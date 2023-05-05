@@ -1,0 +1,100 @@
+{% extends 'master.html' %}
+{% block body %}
+{% load cart_tag %}
+
+
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+              <li><a href="#">Home</a></li>
+              <li class="active">Place Order</li>
+            </ol>
+        </div>
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Item</td>
+                        <td class="description">Name</td>
+                        <td class="price">Price</td>
+                        <td class="quantity">Quantity</td>
+                        <td class="total">Total</td>
+                       
+    
+                    </tr>
+                </thead>
+                <tbody>
+                {% for key,value in request.session.cart.items %}   
+                    <tr>
+                        <td class="cart_product">
+                            <a href=""><img src="{{value.image}}" alt=""height="120px" width="200px"></a>
+                        </td>
+                        <td class="cart_description">
+                            <h4><a href="">{{value.name}}</a></h4>
+                        
+                        </td>
+                        <td class="cart_price">
+                            <p>₹{{value.price}}</p>
+                        </td>
+                        <td class="cart_price">
+                            <div class="cart_quantity_button">
+                               <p>{{value.quantity}}</p>
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price" >₹{{ value.price|multiply:value.quantity }}</p>
+                        </td>
+
+                        <!-- <td>
+                        <input id="amount" name="amount" value="890">
+                    </td> -->
+                       
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+        
+            </table>
+        </div>
+         
+        <a  id="rzp-button1"> <button  type="button" class="btn btn-primary"  style="float: right; ; position: relative;right: 13px;" >Place Order</button></a>
+     </div><br><br>
+        </div>
+    </div>
+
+</section> <!--/#cart_items-->
+
+<form action="{% url 'success' %}" method="post">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_E41qyZeqCxuWAf", // Enter the Key ID generated from the Dashboard
+    "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Razorpay ", //your business name
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    "order_id": "{{order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "callback_url": "http://127.0.0.1:8000/success",
+    "prefill": {
+        "name": "Gaurav Kumar", //your customer's name
+        "email": "gaurav.kumar@example.com",
+        "contact": "9000090000"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+</form>
+
+{% endblock %}

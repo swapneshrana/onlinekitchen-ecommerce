@@ -1,0 +1,170 @@
+{% extends 'master.html' %}
+{% block body %}
+<style>
+    *{
+    margin: 0;
+    padding: 0;
+}
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+
+</style>
+
+<section>
+    <div class="container" style="position: relative; left: 150px;">
+        <div class="row">
+            <div class="col-sm-3">
+               
+                
+                  
+                 
+                </div>
+            </div>
+            
+            <div class="col-sm-9 padding-right">
+                <div class="product-details"><!--product-details-->
+                    <div class="col-sm-5">
+                        <div class="view-product">
+                            <img src="/{{products.image}}" alt="" />
+                            
+                        </div>
+                        <div id="similar-product" class="carousel slide" data-ride="carousel">
+                            
+                              <!-- Wrapper for slides -->
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                      <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
+                                      <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
+                                      <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
+                                    </div>
+                                    <div class="item">
+                                      <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
+                                      <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
+                                      <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
+                                    </div>
+                                    <div class="item">
+                                      <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
+                                      <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
+                                      <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
+                                    </div>
+                                    
+                                </div>
+
+                              <!-- Controls -->
+                              
+                        </div>
+
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="product-information"><!--/product-information-->
+                            <img src="images/product-details/new.jpg" class="newarrival" alt=""/>
+                            <h2>{{products.name}}</h2>
+                            <p>Product ID: 1089772</p>
+                            <img src="images/product-details/rating.png" alt="" />
+                            <span>
+                                <span>Rs. ₹{{products.price}}</span>
+
+                                <!--<label>Quantity:</label>
+                                <input type="text" value="3" />-->
+                               <a href="{% url 'cart_add' products.id %}" type="submit" class="btn btn-fefault cart">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    Add to cart
+                               </a>
+                            </span>
+                            <p><b>Availability:</b> {{products.Availability}}</p>
+                            <!--<p><b>Brand:</b> E-SHOPPER</p>-->
+                            <a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
+                        </div><!--/product-information-->
+                    </div>
+                </div><!--/product-details-->
+                
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item"><a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true" style="font-size: 20px; font-family: Arial, Helvetica, sans-serif; color: #333333;">Description</a></li>
+                    <li class="nav-item"><a class="nav-link" id="reviews-tab"  data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false" style="font-size: 20px;font-family: Arial, Helvetica, sans-serif; color: #333333;">Reviews</a></li>
+                  </ul>
+                  <div class="tab-content mb-5" id="myTabContent">
+                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                      <div class="p-4 p-lg-5 bg-white">
+                        <h3 class="text-uppercase" style="font-family: Arial, Helvetica, sans-serif; color: #333333;">Product description </h3><br>
+                        <p class="text-muted text-small mb-0" style="font-size: 15px; color: grey;">{{products.detail_description}}</p>
+                      </div><br><br><br><br>
+                    </div>
+                    
+                  </div><br><br><br><br>
+        
+                  <h2 class="h5 text-uppercase mb-4" style="font-size: 25px; font-style: bold;">Related products</h2>
+                  <div class="row">
+        
+                    {% if related_products %}
+                      {% for rp in related_products %}
+                      
+                        <!-- PRODUCT-->
+                        <div class="col-lg-3 col-sm-6">
+                          <div class="product text-center skel-loader">
+                            <div class="d-block mb-3 position-relative">
+                              <a class="d-block" href="">
+                                {% if rp.image %}
+                                  <img class="img-fluid w-100" src="{{rp.image.url}}" alt="{{rp.title}}" width="200px" height="200px">
+                                {% else %}
+                                <img class="img-fluid w-100" src="" alt="{{rp.title}}">
+                                {% endif %}
+                              </a>
+        
+                              <div class="product-overlay">
+                                <ul class="mb-0 list-inline">
+                                 
+                                 <a href="{% url 'cart_add' products.id %}" class="btn btn-default get"  style="position: relative; top: 260px; right: 15px;" type="button"><li class="fa fa-shopping-cart"></li>Add to cart</a>
+                                </ul>
+                              </div>
+                            </div>
+                            <h6> <a class="reset-anchor" href="" style="color: #363432; font-size: 20px;">{{rp.name}}</a></h6>
+                            <p class="small text-muted" style="font-size: 15px; color: grey;">Rs. ₹{{rp.price}}</p>
+                          </div>
+                        </div>
+        
+                      {% endfor %}
+                    {% endif %}
+        
+                   
+        
+                  </div>
+            </div>
+        </div>
+    </div><br><br><br><br>
+</section>
+
+
+{% endblock %}

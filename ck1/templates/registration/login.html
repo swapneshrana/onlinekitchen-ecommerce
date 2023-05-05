@@ -1,0 +1,29 @@
+{% extends 'master.html' %}
+{% block body %}
+<section id="form" style="margin-left: 30%; border: solid 0px; width: 600px; height: 400px; background-color: white; box-shadow: 10px; box-shadow: rgba(99,99,99,0.2)0px 2px 8px 0px;" > <!--form-->
+    <div class="container">
+        <div class="col-sm-4 col-sm-offset-1"><br>
+            <div class="signup-form"><!--login form-->
+                {% include 'partials/messages.html' %}  
+                
+                <h2 style="color: black; font-style: 15px; font-weight: 45px; font-size: 25px;">Login to your Account</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    {{ field.errors }}
+                    <label>{{field.label_tag}}</label>
+                    <p>{{ field }}</p>
+                    {% endfor %}
+                    <a href="{% url 'password_reset' %}" style="float: right;">Forgot Password ?</a><br>
+
+                    <button class="btn btn-default" type="submit">Login</button><br>
+
+                    <a href="{% url 'signup' %}"><span style="color:none; margin-left: 0px; text-decoration: underline;">Dont't have an account ? Signup</span></a0>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>    
+{% endblock %}

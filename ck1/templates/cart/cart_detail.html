@@ -1,0 +1,166 @@
+{% extends 'master.html'%}
+{% load cart_tag %}
+{% block body %}
+<style>
+.coupon {
+border-radius: 1px
+}
+.btn-apply {
+font-size: 14px
+}
+</style>
+{% if request.session.cart|length < 1 %}
+ <!-- Empty Cart area start -->
+ <div class="empty-cart-area pb-100px pt-100px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cart-heading">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br><br><br><br>
+                    <h2>Your cart item</h2>
+                </div>
+                <div class="empty-text-contant text-center">
+                    <i class="pe-7s-shopbag"></i>
+                    <h3>There are no more items in your cart</h3>
+                    <a class="empty-cart-btn" href="http://127.0.0.1:8000/">
+                        <a class="btn btn-primary" href="http://127.0.0.1:8000/">Continue shopping</a> <br>
+                    </a>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br><br><br><br><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Empty Cart area end -->
+
+{% else %}
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+              <li><a href="#">Home</a></li>
+              <li class="active">Shopping Cart</li>
+            </ol>
+        </div>
+        
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Item</td>
+                        <td class="description">Name</td>
+                        <td class="price">Price</td>
+                        <td class="quantity">Quantity</td>
+                        <td class="total">Total</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key,value in request.session.cart.items %}    
+                    <tr>
+                        <td class="cart_product">
+                            <a href=""><img src="{{value.image}}" alt="" height="120px" width="200px"></a>
+                        </td>
+                        <td class="cart_description">
+                            <h4><a href="">{{value.name}}</a></h4>
+                            <!--<p>Web ID: 1089772</p>-->
+                        </td>
+                        <td class="cart_price">
+                            <p>₹{{value.price}}</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                                <a class="cart_quantity_up" href="{% url 'item_increment' value.product_id %}"> + </a>
+                                <input class="cart_quantity_input" type="text" name="quantity" value="{{value.quantity}}" autocomplete="off" size="2">
+                                <a class="cart_quantity_down" href="{% url 'item_decrement' value.product_id %}"> - </a>
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price">₹{{ value.price|multiply:value.quantity }}</p>
+                        </td>
+                        <td class="cart_delete">
+                            <a class="cart_quantity_delete" href="{% url 'item_clear' key %}"><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+                    <!--<a class =  "btn btn-primary" href="{% url 'cart_clear' %}" style="float: right; width: 300px; position: relative;right: 13px; top: 550px;">Clear Cart</a>-->
+                    {% endfor %}   
+                </tbody>
+                <tfoot>
+                    <td>    
+                    </td>
+                    <td>   
+                    </td>
+                    <td>   
+                    </td>
+                    <td>
+                        <hr>
+                        {% if valid_coupon %}
+                        <li class="text-success" style="font-size: 15px; list-style-type: none;">coupon code applied<span style="position: relative; left: 160px;">{{coupon.discount}}%</span></li>
+                        {% endif %}
+                        <h3>Sub Total : </h3>
+                    </td>
+                    <td>
+                      
+                    </td>
+                    <td>
+                        <h3 style="position: relative; right: 130px; top:10px;">₹{{cart_total_amount}}</h3>
+                    </td>
+                </tfoot>
+            </table>
+            <!--<form method="get" style="position: relative; left: 600px; bottom: 10px;">
+                {% csrf_token %}
+                <div class="form">
+                   
+                    <label>Have coupon?</label>
+                <div class="in" style="width: 310px;"> 
+                    {% if valid_coupon %}
+                    <div class="alert alert-success" role="alert">
+                     <strong>{{coupon.code}}</strong>&nbsp;{{valid_coupon}}
+                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                     </button>
+                   </div>
+                    {% elif invalid_coupon %}
+                    <div class="alert alert-danger" role="alert">
+                     {{invalid_coupon}}
+                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                     </button>
+                   </div>
+                    {% endif %} 
+                    <input type="text" name="coupon_code" class="form-control coupon" name="" placeholder="Coupon code"> <span class="input-group-append"> <button class="btn btn-primary btn-apply coupon" type="submit" style="float: right; position: relative; left: 65px; bottom: 48px;">Apply</button> </span> </div>
+                </div>
+                </form><br>
+                <h5 class="text-uppercase my-5" style="position: relative; left: 600px; font-size: 17px; ">Select Shipping Address</h5>
+                <form  method="post">
+                    {% csrf_token %}
+                  {% if addresses %}
+                    {% for address in addresses %}
+                      <div class="mb-3" style="position: relative; left: 600px; font-size: 17px; ">
+                      <input type="radio" name="address" value="{{address.id}}"> <strong>Address {{forloop.counter}}</strong> <br>
+                      ( {{address.locality}}, {{address.city}}, {{address.state}} )
+                      </div><br>
+                    {% endfor %}
+                  {% endif %}  
+                </form>      -->  
+        </div> 
+       <a href="/checkout/"> <button  type="button" class="btn btn-primary"  style="float: right; ; position: relative;right: 13px;" > proceed to Checkout</button></a>
+    </div>
+</section> <!--/#cart_items-->
+<br>
+
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {%load static%}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home | Easy-Eatter</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+	
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/css/prettyPhoto.css" rel="stylesheet">
+    <link href="/static/css/price-range.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+	<link href="/static/css/main.css" rel="stylesheet">
+	<link href="/static/css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="/static/images/home/restaurant-cutlery-circular-symbol-of-a-spoon-and-a-fork-in-a-circle (1).png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/images/ico/apple-touch-icon-57-precomposed.png">
+	<style>
+		.badge {
+  background-color: orange;
+  color: white;
+  padding: 4px 8px;
+  text-align: center;
+  border-radius: 19px;
+}
+	</style>
+</head><!--/head-->
+
+<body>
+
+    <header id="header"><!--header-->
+		<div class="header_top"><!--header_top-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="contactinfo">
+							<ul class="nav nav-pills">
+								<li><a href="#"style="font-family: sans-serif;"><i class="fa fa-phone"></i> +91 9501888214</a></li>
+								<li><a href="#"style="font-family: sans-serif;"><i class="fa fa-envelope"></i> info@easyeatter.com</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="social-icons pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header_top-->
+		
+		<div class="header-middle"><!--header-middle-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="logo pull-left">
+							<a href="{% url 'index' %}" style="color: orange; font-size: 25px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-style: bold;">Easy-Eatter</a>
+							
+						</div>
+						<div class="btn-group pull-right">
+							<div class="btn-group">
+								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown"style="size: 30px;">
+									INDIA
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a href="#">Canada</a></li>
+									<li><a href="#">USA</a></li>
+								</ul>
+							</div>
+							
+							<div class="btn-group">
+								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown" style="size: 30px;">
+									INR
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a href="#">Indian Rupees</a></li>
+									<li><a href="#">Dollar</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="shop-menu pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href="/my-dashboard/" style="font-size: 16px;"><i class="fa fa-user"></i>My Account {{request.user.username}}</a></li>
+								<!--<li><a href="/wishlist/" style="font-size: 16px;"><i class="fa fa-star"></i> Wishlist</a></li>-->
+								
+								<li><a href="/checkout/" style="font-size: 16px;"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+								<li><a href="/cart/cart-detail/"style="font-size: 16px;"><i class="fa fa-shopping-cart"></i> Cart &nbsp;<span class="badge">{{request.session.cart|length}}</span></a></li>
+                                {% if user.is_authenticated %}
+								<li><a href="{% url 'logout'%}"style="font-size: 16px;"><i class="fa fa-lock"></i> Logout</a></li>
+								{% else %}
+								<li><a href="{% url 'login' %}"style="font-size: 16px;"><i class="fa fa-lock"></i> Login</a></li>
+								{% endif %}
+								<li><a href="/admin/" style="font-size: 16px;"><i class="fa fa-crosshairs"></i>Admin</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-middle-->
+	
+		<div class="header-bottom"><!--header-bottom-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-9">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="mainmenu pull-left">
+							<ul class="nav navbar-nav collapse navbar-collapse">
+								<li><a href= "{% url 'index' %}" class="active" style="color: orange;">Home</a></li>
+								<li class="dropdown"><a href="#"style="color: black;">Shop<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="/product/">Menus</a></li>
+										<li><a href="product-details.html">Product Details</a></li> 
+										
+	
+										
+                                    </ul>
+                                </li> 
+								
+                                </li> 
+								<li><a href="/about/"style="color: black;">About Us</a></li>
+								<li><a href="/contact/"style="color: black;">Contact Us</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<form method="get" action="/search/">
+						<div class="search_box pull-right">
+							<input name = "query" type="text" placeholder="Search" style="border-radius: 0px; color: black;">
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-bottom-->
+	</header><!--/header-->
+
+{% block body %} {% endblock %}    
+
+    <footer id="footer" width = "100%" ><!--Footer-->
+		<!--<div class="footer-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="companyinfo">
+							<h2><span>CLOUD</span>-KITCHEN</h2>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
+						</div>
+					</div>
+					<div class="col-sm-7">
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="images/home/video_preview_h264.Mp4" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								<p>Circle of Hands</p>
+								<h2>1 DEC 2023</h2>
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="images/home/iframe2.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								<p>Circle of Hands</p>
+								<h2>19 DEC 2023</h2>
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="images/home/iframe3.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								<p>Circle of Hands</p>
+								<h2>21 DEC 2023</h2>
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="images/home/iframe4.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								<p>Circle of Hands</p>
+								<h2>28 DEC 2023</h2>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="address">
+							<img src="images/home/map.png" alt="" />
+							<p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>-->
+		
+		<div class="footer-widget">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Service</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#"style="font-family: sans-serif;">Online Help</a></li>
+								<li><a href="#"style="font-family: sans-serif;">Contact Us</a></li>
+								<li><a href="#"style="font-family: sans-serif;">Order Status</a></li>
+								<li><a href="#"style="font-family: sans-serif;">Change Location</a></li>
+								<li><a href="#"style="font-family: sans-serif;">FAQ’s</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Quick Order</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#"style="font-family: sans-serif;">Mexican Food</a></li>
+								<li><a href="#"style="font-family: sans-serif;">Veggies</a></li>
+								<li><a href="#"style="font-family: sans-serif;">Italian Food</a></li>
+								<li><a href="#"style="font-family: sans-serif;">Vegan</a></li>
+								<li><a href="#"style="font-family: sans-serif;">Restaurants</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Policies</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#"style="font-family: sans-serif;">Terms of Use</a></li>
+								<li><a href="#"style="font-family: sans-serif;">Privecy Policy</a></li>
+								<li><a href="#"style="font-family: sans-serif;">Refund Policy</a></li>
+								<li><a href="#"style="font-family: sans-serif;">Billing System</a></li>
+								
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">About Us</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#" style="font-family: sans-serif;">Company Information</a></li>
+								<li><a href="#"style="font-family: sans-serif;">Careers</a></li>
+								<li><a href="#"style="font-family: sans-serif;">Store Location</a></li>
+								<li><a href="#"style="font-family: sans-serif;">Affillate Program</a></li>
+								<li><a href="#"style="font-family: sans-serif;">Copyright</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3 col-sm-offset-1">
+						<div class="single-widget">
+							<h2 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">About Kitchen</h2>
+							<form action="#" class="searchform">
+								<input type="text" placeholder="Your email address" style="color: black;" />
+								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+								<p style="font-family: sans-serif;">Get the most recent updates from <br />our site and be updated your self...</p>
+							</form>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<p class="pull-left">Copyright © 2023 EASY-EATTER Inc. All rights reserved.</p>
+					<p class="pull-right">Designed by <span><a target="_blank" href="#">Company</a></span></p>
+				</div>
+			</div>
+		</div>
+		
+	</footer><!--/Footer-->
+	
+
+  
+    <script src="/static/js/jquery.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/jquery.scrollUp.min.js"></script>
+	<script src="/static/js/price-range.js"></script>
+    <script src="/static/js/jquery.prettyPhoto.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

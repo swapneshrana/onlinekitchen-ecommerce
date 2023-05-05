@@ -1,0 +1,66 @@
+{% extends 'master.html'%}
+{% block body %}
+
+
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+              <li><a href="#">Profile</a></li>
+              <li class="active">My order</li>
+              
+            </ol>
+        </div>
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Item</td>
+                        <td class="description">Name</td>
+                        <td class="price">Price</td>
+                        <td class="quantity">Quantity</td>
+                        <td class="total">Total</td>
+                        <td class="total">Status</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in order %}    
+                    <tr>
+                        <td class="cart_product">
+                            <a href=""><img src="{{i.image}}" alt="" height="120px" width="200px"></a>
+                        </td>
+                        <td class="cart_description">
+                            <h4><a href="#">{{i.product}}</a></h4>
+                            <!--<p>Web ID: 1089772</p>-->
+                        </td>
+                        <td class="cart_price">
+                            <p>₹{{i.price}}</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                              {{i.quantity}}
+                            </div>
+                        </td>
+                        <td class="cart_total" style="font-size: 19px; color: grey;">
+                            ₹{{i.total}}
+                        </td>
+                        <td class="cart_total" style="font-size: 19px; color: grey;">
+                            {{i.status}}
+                        </td>
+                        
+                    </tr>
+                
+                    {% endfor %}
+                   
+                </tbody>
+              
+            </table>
+       
+</section> <!--/#cart_items-->
+<br>
+
+
+
+
+{% endblock %}
